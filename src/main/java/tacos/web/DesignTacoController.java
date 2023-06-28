@@ -21,7 +21,7 @@ import org.springframework.validation.Errors;
 public class DesignTacoController {
     @GetMapping
     public String showDesignForm(Model model) {
-        // 식
+        // 식자재를 나타내는 Ingredient 갹체를 저장하는 List를 생성
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
                 new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
@@ -52,5 +52,12 @@ public class DesignTacoController {
                 .stream()
                 .filter(x -> x.getType().equals(type))
                 .collect(Collectors.toList());
+    }
+    @PostMapping
+    public String processDesign(Taco design) {
+        // 이 지점에서 타코 디자인(선택된 식자재 내역)을 저장한다…
+        // 이 작업은 3장에서 할 것이다.
+        log.info("Processing design: " + design);
+        return "redirect:/orders/current";
     }
 }
