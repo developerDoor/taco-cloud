@@ -15,6 +15,8 @@ import tacos.Ingredient;
 import tacos.Ingredient.Type;
 import org.springframework.validation.Errors;
 
+import jakarta.validation.Valid;
+
 @Slf4j
 @Controller
 @RequestMapping("/design")
@@ -54,7 +56,11 @@ public class DesignTacoController {
                 .collect(Collectors.toList());
     }
     @PostMapping
-    public String processDesign(Taco design) {
+    public String processDesign(@Valid Taco design, Errors errors) {
+        if(errors.hasErrors()) {
+            return "design";
+        }
+
         // 이 지점에서 타코 디자인(선택된 식자재 내역)을 저장한다…
         // 이 작업은 3장에서 할 것이다.
         log.info("Processing design: " + design);
